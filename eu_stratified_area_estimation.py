@@ -81,7 +81,7 @@ def parse_args() -> argparse.Namespace:
         "--sample-file",
         type=Path,
         required=True,
-        help="Vector file with validation points and columns: Code_18, reference, reference_new, Class.",
+        help="Vector file with validation points and columns: Code_18, reference, Class.",
     )
     parser.add_argument(
         "--strata-file",
@@ -112,7 +112,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def collapse_code18(code: int) -> int:
-    """Collapse all CLC 1xx strata to a single design stratum."""
+    """Collapse all CLC 1xx codes to stratum 100."""
     code = int(code)
     return URBAN_COLLAPSE_CODE if (code // 100) == 1 else code
 
@@ -178,15 +178,13 @@ def load_samples(
     """
     Load validation points and prepare:
 
-        h   = design stratum
+        h   = stratum
         ref = reference label
         map = map label
-
-    If reference_new is present, it takes precedence over reference.
     """
     gdf = gpd.read_file(sample_file)
 
-    required = {"Code_18", "reference", "reference_new", "Class"}
+    required = {"Code_18", "reference", "Class"}
     missing = required - set(gdf.columns)
     if missing:
         raise ValueError(f"Sample file is missing required columns: {sorted(missing)}")
@@ -199,10 +197,7 @@ def load_samples(
     if exclude_strata:
         gdf = gdf.loc[~gdf["h"].isin(exclude_strata)].copy()
 
-    ref_new = pd.to_numeric(gdf["reference_new"], errors="coerce")
-    ref_old = pd.to_numeric(gdf["reference"], errors="coerce")
-    gdf["ref"] = ref_new.where(ref_new.notna(), ref_old)
-
+    gdf["ref"] = pd.to_numeric(gdf["reference"], errors="coerce")
     gdf["map"] = pd.to_numeric(gdf["Class"], errors="coerce")
 
     gdf = gdf.dropna(subset=["ref", "map"]).copy()
@@ -227,7 +222,7 @@ def load_strata(
     """
     Load known stratum areas and return:
 
-        h      = design stratum
+        h      = stratum
         A_h_m2 = known stratum area
         N_h    = stratum population size in pixels
     """
@@ -248,7 +243,7 @@ def load_strata(
     if exclude_strata:
         df = df.loc[~df["h"].isin(exclude_strata)].copy()
 
-    # Needed because multiple original 1xx classes collapse into stratum 100.
+    # Sum areas where multiple original codes are reassigned to the same stratum.
     df = df.groupby("h", as_index=False)["A_h_m2"].sum()
     df["N_h"] = df["A_h_m2"] / PIXEL_AREA_M2
 
@@ -475,7 +470,7 @@ def main() -> None:
     print()
     print(f"Overall accuracy (OA): {OA:.4f}")
     print(f"Total sample size: {len(samples):,d}")
-    print(f"Design strata represented: {samples['h'].nunique()}")
+    print(f"Strata represented: {samples['h'].nunique()}")
 
 
 if __name__ == "__main__":
