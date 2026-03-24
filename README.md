@@ -238,9 +238,8 @@ pip install numpy pandas geopandas scipy
 
 These scripts implement the estimation workflows described in the paper’s Methods section for:
 - European-scale design-based wetland area and accuracy estimation
-- country-level wetland area estimation
-- European-scale wetland disturbance estimation
-- country-level disturbance allocation
+- Country-level wetland area estimation
+- Wetland disturbance area estimation
 
 The repository is intended to document the estimation framework used in the study. It is not a full reproduction package for all manuscript figures, manuscript text, or downstream carbon analyses.
 
