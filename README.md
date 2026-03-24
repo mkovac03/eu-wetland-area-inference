@@ -142,13 +142,6 @@ python eu_design_based_disturbance_estimation.py \
   --out-dir /path/to/output_dir \
   --exclude-strata 999
 
-Optional diagnostic output for unknown disturbance labels:
-python eu_design_based_disturbance_estimation.py \
-  --sample-file /path/to/validation_points_with_disturbance.gpkg \
-  --strata-file /path/to/stratum_areas.csv \
-  --out-dir /path/to/output_dir \
-  --include-unknown
-
 #### Outputs
 - `eu_class_disturbance_estimates.csv`
 - `eu_disturbance_totals.csv`
