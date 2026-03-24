@@ -12,7 +12,7 @@ The scripts correspond to the following methodological components of the paper:
 - **Country-level wetland area estimation**
 - **Wetland disturbance area estimation**
 
-These scripts are written as public-facing implementations of the methods and use simplified, explicit variable naming:
+These scripts are written as implementations of the methods and use explicit variable naming:
 - `reference` = reference class label
 - `Class` = mapped class label
 - `Code_18` = stratum code
