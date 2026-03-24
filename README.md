@@ -2,9 +2,9 @@
 
 This repository contains the analysis scripts used to implement the methods described in:
 
-Highly fragmented European wetlands with uneven restoration needs
-Gyula Mate Kovács, Xiaoye Tong, Dimitri Gominski, Stefan Oehmcke, Stéphanie Horion, Christin Abel, Eva Ivits, Guy Schurgers, Bo Elberling, Alexander Prishchepov, Sebastian van der Linden, Susan Page, Alexandra Barthelmes, Franziska Tanneberger, and Rasmus Fensholt.
-Nature (2026)
+**Highly fragmented European wetlands with uneven restoration needs**  
+Gyula Mate Kovács, Xiaoye Tong, Dimitri Gominski, Stefan Oehmcke, Stéphanie Horion, Christin Abel, Eva Ivits, Guy Schurgers, Bo Elberling, Alexander Prishchepov, Sebastian van der Linden, Susan Page, Alexandra Barthelmes, Franziska Tanneberger, and Rasmus Fensholt.  
+**Nature (2026)**
 
 The scripts correspond to the following methodological components of the paper:
 
