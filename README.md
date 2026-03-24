@@ -48,9 +48,7 @@ It uses an independent stratified validation sample and known stratum areas.
 python eu_design_based_area_estimation.py \
   --sample-file /path/to/validation_points.gpkg \
   --strata-file /path/to/stratum_areas.csv \
-  --out-dir /path/to/output_dir \
-  --n-classes 8 \
-  --exclude-strata 999
+  --out-dir /path/to/output_dir 
 
 #### Outputs
 - `eu_sample_based_areas.csv`
@@ -91,13 +89,7 @@ This script estimates country-level wetland class areas from the continental str
 python country_calibrated_hierarchical_area_estimation.py \
   --sample-file /path/to/validation_points_with_country.gpkg \
   --strata-file /path/to/country_stratum_areas.csv \
-  --out-dir /path/to/output_dir \
-  --n-classes 8 \
-  --nsim 5000 \
-  --kappa-min 0.1 \
-  --kappa-max 500 \
-  --kappa-grid-size 80 \
-  --random-seed 42
+  --out-dir /path/to/output_dir 
 
 #### Outputs
 - `country_calibrated_hierarchical_area_estimates.csv`
@@ -139,8 +131,7 @@ The estimator is design-based and uses the same stratified indicator framework a
 python eu_design_based_disturbance_estimation.py \
   --sample-file /path/to/validation_points_with_disturbance.gpkg \
   --strata-file /path/to/stratum_areas.csv \
-  --out-dir /path/to/output_dir \
-  --exclude-strata 999
+  --out-dir /path/to/output_dir 
 
 #### Outputs
 - `eu_class_disturbance_estimates.csv`
@@ -189,11 +180,7 @@ python country_calibrated_hierarchical_disturbance_allocation.py \
   --mapped-file /path/to/country_class_disturbance_mapped.csv \
   --eu-design-file /path/to/eu_class_disturbance_estimates.csv \
   --country-class-file /path/to/country_calibrated_hierarchical_area_estimates.csv \
-  --out-dir /path/to/output_dir \
-  --n-draws 2000 \
-  --target-fraction 0.30 \
-  --peat-class 2 \
-  --random-seed 42
+  --out-dir /path/to/output_dir 
 
 #### Outputs
 - `country_class_disturbance_allocations.csv`
