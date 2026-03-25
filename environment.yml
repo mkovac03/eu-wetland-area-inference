@@ -1,0 +1,17 @@
+name: eu-wetland-area
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pyogrio
+  - gdal
+  - fiona
+  - numpy
+  - scipy
+  - pyproj
+  - shapely
+  - geopandas
+  - matplotlib
+  - pandas
+prefix: /home/lkm413/anaconda3/envs/eu-wetland-area
