@@ -75,18 +75,15 @@ This script uses an independent stratified validation sample and known stratum a
 
 ### Required inputs
 - `--sample-file`  
-  Vector file with:
+  Must contain:
   - `Code_18`
   - `reference`
   - `Class`
 
 - `--strata-file`  
-  CSV with:
+  Must contain:
   - `Code_18`
-  - one area column among:
-    - `fty_zero_m2`
-    - `fty_zero_ha`
-    - `area_m2`
+  - `fty_zero_m2`
 
 - `--out-dir`  
   Output directory
@@ -121,31 +118,21 @@ Estimates country-level wetland class areas using:
 
 ### Required inputs
 - `--sample-file`  
-  Vector file with:
+  Must contain:
   - `CNTR_ID`
   - `Code_18`
   - `reference_final`
 
 - `--strata-file`  
-  CSV with:
+  Must contain:
   - `CNTR_ID`
   - `Code_18`
-  - one area column among:
-    - `fty_zero_m2`
-    - `fty_zero_ha`
-    - `area_m2`
-    - `A_m2`
-    - `A_ha`
+  - `fty_zero_ha`
 
 - `--country-totals-file`  
-  CSV with:
+  Must contain:
   - `CNTR_ID`
-  - one country-total area column among:
-    - `fty_zero_ha_total`
-    - `fty_zero_ha`
-    - `A_d_ha`
-    - `A_ha`
-    - `total_ha`
+  - `fty_zero_ha_total`
 
 - `--out-dir`  
   Output directory
@@ -186,24 +173,18 @@ The estimator is design-based and uses the same stratified indicator framework a
 
 ### Required inputs
 - `--sample-file`  
-  Vector file with:
+  Must contain:
   - `Code_18`
   - `reference_final`
   - `distur`
 
 - `--strata-file`  
-  CSV with:
+  Must contain:
   - `Code_18`
-  - one area column among:
-    - `fty_zero_m2`
-    - `fty_zero_ha`
-    - `area_m2`
+  - `fty_zero_m2`
 
 - `--out-dir`  
   Output directory
-
-- `--include-unknown`  
-  Optional flag to also report disturbance `-1` as a separate diagnostic category
 
 ### Example run
 ```bash
@@ -238,26 +219,23 @@ This script also produces country-level disturbed-area targets, including peatbo
 
 ### Required inputs
 - `--mapped-file`  
-  CSV containing mapped country × class × disturbance areas with columns including:
-  - `CNTR_ID` or equivalent country field
-  - `class` or `ref_class`
-  - `distur` / `distur_1` / `disturbance`
-  - one mapped area column such as:
-    - `area_ha`
-    - `mapped_area_ha`
-    - `area`
-    - `A_ha`
-    - `ha`
-    - `area_m2`
-    - `A_m2`
+  Must contain:
+  - `CNTR_ID`
+  - `class`
+  - `distur_1`
+  - `area_ha`
 
 - `--eu-design-file`  
-  Typically:
-  - `outputs/eu_design_based_disturbance_estimation/eu_class_disturbance_estimates.csv`
+  Must contain:
+  - `ref_class`
+  - `distur`
+  - `est_ha`
 
 - `--country-class-file`  
-  Typically:
-  - `outputs/country_calibrated_hierarchical_area_estimation/country_pooled_wetland_area_estimates.csv`
+  Must contain:
+  - `CNTR_ID`
+  - `ref_class`
+  - `A_post_mean_ha`
 
 - `--out-dir`  
   Output directory
@@ -329,7 +307,7 @@ This repository contains the public inference workflows for wetland area and dis
 
 ## Citation
 
-Kovács, G. M., Tong, X., Gominski, D., Oehmcke, S., Horion, S., Abel, C., Ivits, E., Schurgers, G., Elberling, B., Prishchepov, A., van der Linden, S., Page, S., Barthelmes, A., Tanneberger, F., & Fensholt, R. (2026). *Highly fragmented European wetlands with uneven restoration needs*. Nature.
+Kovács, G. M., Tong, X., Gominski, D., Oehmcke, S., Horion, S., Abel, C., Ivits, E., Schurgers, G., Elberling, B., Prishchepov, A., van der Linden, S., Page, S., Barthelmes, A., Tanneberger, F., & Fensholt, R. (2026). *Highly fragmented European wetlands with uneven restoration needs*.
 
 ## References
 
