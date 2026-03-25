@@ -1,4 +1,4 @@
-# EU Wetland Area Inference
+# European Wetland Area Inference
 
 This repository contains the analysis scripts used to implement the area-inference workflows described in:
 
@@ -7,9 +7,9 @@ Gyula Mate Kovács, Xiaoye Tong, Dimitri Gominski, Stefan Oehmcke, Stéphanie Ho
 
 The repository contains four main scripts covering:
 
-- EU-wide design-based wetland area and accuracy estimation
+- Europe-wide design-based wetland area and accuracy estimation
 - Country-level pooled wetland area estimation
-- EU-wide design-based wetland disturbance estimation
+- Europe-wide design-based wetland disturbance estimation
 - Country-level disturbance allocation and restoration target estimation
 
 ## Repository structure
@@ -57,7 +57,7 @@ Run the scripts in this order:
 
 The fourth script depends on outputs produced by scripts 2 and 3.
 
-## 1. EU-wide design-based area estimation
+## 1. Europe-wide design-based area estimation
 
 ### Script
 `eu_design_based_area_estimation.py`
@@ -157,7 +157,7 @@ python country_calibrated_hierarchical_area_estimation.py \
 
 ---
 
-## 3. EU-wide design-based disturbance estimation
+## 3. Europe-wide design-based disturbance estimation
 
 ### Script
 `eu_design_based_disturbance_estimation.py`
