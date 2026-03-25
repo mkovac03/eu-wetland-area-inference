@@ -1,6 +1,6 @@
 # EU Wetland Area Inference
 
-This repository contains the public-facing analysis scripts used to implement the area-inference workflows described in:
+This repository contains the analysis scripts used to implement the area-inference workflows described in:
 
 **Highly fragmented European wetlands with uneven restoration needs**  
 Gyula Mate Kovács, Xiaoye Tong, Dimitri Gominski, Stefan Oehmcke, Stéphanie Horion, Christin Abel, Eva Ivits, Guy Schurgers, Bo Elberling, Alexander Prishchepov, Sebastian van der Linden, Susan Page, Alexandra Barthelmes, Franziska Tanneberger, and Rasmus Fensholt.
