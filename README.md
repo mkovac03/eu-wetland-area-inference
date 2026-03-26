@@ -7,9 +7,9 @@ Gyula Mate Kovács, Xiaoye Tong, Dimitri Gominski, Stefan Oehmcke, Stéphanie Ho
 
 The repository contains four main scripts covering:
 
-- Europe-wide design-based wetland area and accuracy estimation
-- Country-level pooled wetland area estimation
-- Europe-wide design-based wetland disturbance estimation
+- Europe-wide wetland area and accuracy estimation
+- Country-level wetland area estimation
+- Europe-wide wetland disturbance estimation
 - Country-level disturbance allocation and restoration target estimation
 
 ## Repository structure
