@@ -158,7 +158,7 @@ def parse_args() -> argparse.Namespace:
 
 
 # =============================
-# Helpers (same logic as source)
+# Helper functions
 # =============================
 def collapse_code18(code: int) -> int:
     code = int(code)
@@ -184,9 +184,11 @@ def to_ha(series: pd.Series) -> pd.Series:
 
 
 def dm_loglik(counts_vec: np.ndarray, alpha_vec: np.ndarray) -> float:
-    """
-    Dirichlet-multinomial log-likelihood up to a constant:
-      p(n | alpha) = Gamma(a0)/Gamma(a0+N) * ∏ Gamma(alpha_i+n_i)/Gamma(alpha_i)
+"""
+    Dirichlet-multinomial log-likelihood up to a normalizing constant:
+
+        p(n | alpha) = Gamma(a0)/Gamma(a0+N) *
+                       prod_i Gamma(alpha_i+n_i)/Gamma(alpha_i)
     """
     counts_vec = np.asarray(counts_vec, dtype=float)
     alpha_vec = np.asarray(alpha_vec, dtype=float)
@@ -239,7 +241,7 @@ def main() -> None:
     rng_seed = args.rng_seed
 
     # =============================
-    # 1) Load samples + attach region + collapse strata
+    # 1) Load validation samples, assign regions, and collapse strata
     # =============================
     gdf = gpd.read_file(sample_fp)
 
@@ -365,8 +367,8 @@ def main() -> None:
     df = df.rename(columns={"w": "w_cal"})
 
     # =============================
-    # 4) Normalize weights within COUNTRY (same as source)
-    #    This keeps an "effective n" comparable across countries.
+    # 4) Normalize calibrated weights within country
+    #    This preserves a country-level effective sample size scale.
     # =============================
     grp = df.groupby("CNTR_ID")
     sum_w = grp["w_cal"].transform("sum")
@@ -413,7 +415,7 @@ def main() -> None:
         country_vecs[(d, r)] = vec
 
     # =============================
-    # 6) Empirical Bayes: estimate GLOBAL kappa
+    # 6) Estimate the global shrinkage parameter kappa by empirical Bayes
     # =============================
     kappa_best = float(KAPPA_GRID[0])
     ll_best = -np.inf
@@ -431,7 +433,7 @@ def main() -> None:
     print(f"\nSelected global kappa = {kappa_best:.3f} (EB grid search)")
 
     # =============================
-    # 7) Posterior draws for country reference proportions π_d and areas
+    # 7) Draw posterior country compositions pi_d and convert them to areas
     # =============================
     rng = np.random.default_rng(rng_seed)
 
