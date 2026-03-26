@@ -2,30 +2,77 @@
 # -*- coding: utf-8 -*-
 
 """
-Country-level pooled wetland area estimation.
+Country-level calibrated hierarchical wetland area estimation.
 
-Public-facing version of the country pooling workflow. This script is
-intended to preserve the exact computational logic of the source script,
-while using clearer documentation and command-line inputs.
+This script estimates country-level wetland class areas from a continental
+stratified reference sample. It combines:
+    1) stratified base weights from known stratum areas,
+    2) calibration by iterative proportional fitting (raking) to known
+       country and stratum totals,
+    3) weighted country reference compositions,
+    4) empirical-Bayes partial pooling within macro-regions, and
+    5) posterior area summaries from Dirichlet draws.
 
-Estimator steps
----------------
-1) Load the continental validation sample and collapse the reporting strata.
-2) Compute base weights from known EU-wide stratum areas.
-3) Calibrate weights by iterative proportional fitting so weighted totals
-   match:
-       - country frame totals, and
-       - EU-wide stratum totals.
-4) Normalize calibrated weights within each country.
-5) Form weighted country reference pseudo-counts.
-6) Estimate a global Dirichlet concentration parameter by empirical Bayes.
-7) Draw posterior country class compositions and convert them to areas.
+Core steps
+----------
+Base weights from the continental stratified sample:
+
+    w_h^(0) = A_h / n_h
+
+where:
+    A_h = known total area of stratum h
+    n_h = number of validation samples in stratum h
+
+Calibration by raking enforces:
+
+    sum_{s in country d} w_s = A_d
+    sum_{s in stratum h} w_s = A_h
+
+where:
+    A_d = known frame area of country d
+
+Within each country, calibrated weights are normalized to preserve an
+effective sample size:
+
+    n_eff,d = (sum_s w_ds)^2 / sum_s w_ds^2
+
+    w_ds^norm = w_ds^cal / sum_s w_ds^cal * n_eff,d
+
+Weighted country reference pseudo-counts are then:
+
+    n_tilde_{d,i} = sum_{s in d} w_ds^norm I(y_s = i)
+
+For country d in region r, the pooled class composition is modeled as:
+
+    pi_d | data ~ Dirichlet(kappa * mu_r + n_tilde_d)
+
+where:
+    mu_r  = macro-regional mean class composition
+    kappa = global shrinkage parameter estimated by empirical Bayes
+
+Country-level class areas are obtained by:
+
+    A_{d,i} = A_d * pi_{d,i}
+
+References
+----------
+Särndal, Swensson, and Wretman (1992), Model Assisted Survey Sampling,
+Chapter 10, for domain estimation in design-based survey inference.
+
+Deville and Särndal (1992), Journal of the American Statistical Association,
+for calibration estimators.
+
+Deville, Särndal, and Sautory (1993), Journal of the American Statistical
+Association, for generalized raking / iterative proportional fitting.
+
+Gelman et al. (2014), Bayesian Data Analysis, Chapter 5, for hierarchical
+pooling and shrinkage.
 
 Notes
 -----
-- This script preserves the original source logic exactly.
-- Posterior intervals are model-based credible intervals.
-- Public input files should preserve the column names expected below.
+- Weighted country class vectors are treated as pseudo-counts.
+- Posterior intervals reported here are model-based credible intervals.
+- Region definitions are specified in REGION_COUNTRIES below.
 """
 
 from __future__ import annotations
@@ -43,7 +90,7 @@ from scipy.special import gammaln
 # Region mapping (same as source)
 # -----------------------------
 REGION_COUNTRIES = {
-    "Boreal":    ["DK", "NO", "SE", "FI", "IS", "EE", "LV", "LT"],
+    "Northern":    ["DK", "NO", "SE", "FI", "IS", "EE", "LV", "LT"],
     "Western":   ["FR", "BE", "NL", "IE", "UK", "LU", "AD"],
     "Central":   ["DE", "AT", "CH", "CZ", "PL", "SK", "HU", "LI", "SI", "RO"],
     "SW_Europe": ["ES", "PT", "IT"],
