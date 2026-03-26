@@ -90,9 +90,9 @@ from scipy.special import gammaln
 # Region mapping (same as source)
 # -----------------------------
 REGION_COUNTRIES = {
-    "Northern":    ["DK", "NO", "SE", "FI", "IS", "EE", "LV", "LT"],
-    "Western":   ["FR", "BE", "NL", "IE", "UK", "LU", "AD"],
-    "Central":   ["DE", "AT", "CH", "CZ", "PL", "SK", "HU", "LI", "SI", "RO"],
+    "Boreal": ["DK", "NO", "SE", "FI", "IS", "EE", "LV", "LT"],
+    "Western": ["FR", "BE", "NL", "IE", "UK", "LU", "AD"],
+    "Central": ["DE", "AT", "CH", "CZ", "PL", "SK", "HU", "LI", "SI", "RO"],
     "SW_Europe": ["ES", "PT", "IT"],
     "SE_Europe": ["EL", "CY", "TR", "AL", "BA", "HR", "ME", "MK", "RS", "BG"],
 }
@@ -184,7 +184,7 @@ def to_ha(series: pd.Series) -> pd.Series:
 
 
 def dm_loglik(counts_vec: np.ndarray, alpha_vec: np.ndarray) -> float:
-"""
+    """
     Dirichlet-multinomial log-likelihood up to a normalizing constant:
 
         p(n | alpha) = Gamma(a0)/Gamma(a0+N) *
